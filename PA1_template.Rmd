@@ -126,6 +126,12 @@ After filling the missing values, the mean total number of steps taken per day i
 
 To answer this question, need to calculate the mean the number of steps per interval and per week or weekend day. At the end we will have a mean value of steps per interval for weekdays and another for weekends.
 
+
+
+### Create a new factor variable in the dataset with two levels -- "weekday" and "weekend" indicating whether a given date is a weekday or weekend day.
+
+###    Make a panel plot containing a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). The plot should look something like the following, which was created using simulated data:
+
 ```{r}
 #Factoring the dates
 activityData$weekDay <-  as.factor(weekdays(as.Date(activityData$date)))
@@ -140,7 +146,7 @@ activityDataByWeekDay <-  activityData %>% group_by(interval,weekend)
 #Calculating total, mean and median number of steps for the grouped data
 ADFSummarizedByWeekDay <- as.data.frame(summarise(activityDataByWeekDay, totalSteps=sum(steps, na.rm = TRUE),meanSteps=mean(steps, na.rm = TRUE),medianSteps=median(as.vector(steps), na.rm = TRUE)))
 # Ploting the values
-ggplot(ADFSummarizedByWeekDay,aes(x=interval,y=meanSteps,color=weekend)) + geom_line() + ylab("Mean number of steps per interval")
+ggplot(ADFSummarizedByWeekDay,aes(x=interval,y=meanSteps)) + geom_line() + ylab("Mean number of steps per interval") + facet_wrap(~weekend)
 
 ```
 
