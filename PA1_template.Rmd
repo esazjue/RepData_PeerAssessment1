@@ -28,14 +28,14 @@ ADSummarizedByDate <- as.data.frame(summarise(ADGroupByDate, totalSteps=sum(step
 
 ```{r}
 #Plotting the histogram
-ggplot(ADSummarizedByDate,aes(x=date,y=totalSteps)) + geom_bar(stat="identity")  + xlab("Day") + ggtitle("Histogram of the total number of steps taken each day") + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+ggplot(ADSummarizedByDate,aes(totalSteps)) + geom_histogram(bins="30")  + xlab("Day") + ggtitle("Histogram of the total number of steps taken each day") + theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
 
 ### Calculate and report the mean and median total number of steps taken per day
 
 ```{r results='asis'}
-meanTotal <- mean(ADSummarizedByDate$meanSteps, na.rm = TRUE)
-medianTotal <- mean(ADSummarizedByDate$medianSteps, na.rm = TRUE)
+meanTotal <- mean(ADSummarizedByDate$totalSteps, na.rm = TRUE)
+medianTotal <- median(ADSummarizedByDate$totalSteps, na.rm = TRUE)
 ```
 The mean total number of steps taken per day is `r meanTotal` and the median total number is  `r medianTotal`
 
@@ -95,9 +95,9 @@ ADFSummarizedByDate <- as.data.frame(summarise(ADFSummarizedByDate, totalSteps=s
 ```
 
 ```{r results}
-g1 <-ggplot(ADSummarizedByDate,aes(x=date,y=totalSteps)) + geom_bar(stat="identity")  + xlab("Day") + ggtitle("Total number of steps taken each day (before filling NAs)")  + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+g1 <-ggplot(ADSummarizedByDate,aes(totalSteps)) + geom_histogram(bins=30)  + xlab("Day") + ggtitle("Total number of steps taken each day (before filling NAs)")  + theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
-g2 <-ggplot(ADFSummarizedByDate,aes(x=date,y=totalSteps)) + geom_bar(stat="identity")  + xlab("Day") + ggtitle("Total number of steps taken each day (after filling NAs)")  + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+g2 <-ggplot(ADFSummarizedByDate,aes(totalSteps)) + geom_histogram(bins=30)  + xlab("Day") + ggtitle("Total number of steps taken each day (after filling NAs)")  + theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
 g2
 ```
@@ -116,8 +116,8 @@ grid.arrange(g1, g2,  ncol=1, nrow =2)
 
 
 ```{r results='asis'}
-meanTotalFilling <- mean(ADFSummarizedByDate$meanSteps, na.rm = TRUE)
-medianTotalFilling <- mean(ADFSummarizedByDate$medianSteps, na.rm = TRUE)
+meanTotalFilling <- mean(ADFSummarizedByDate$totalSteps, na.rm = TRUE)
+medianTotalFilling <- median(ADFSummarizedByDate$totalSteps, na.rm = TRUE)
 ```
 After filling the missing values, the mean total number of steps taken per day is `r meanTotalFilling` and the median total number is  `r medianTotalFilling`. Before, they were `r meanTotal` and `r medianTotal` respectively. The mean values are the same but the median changes after filling the missing values.
 

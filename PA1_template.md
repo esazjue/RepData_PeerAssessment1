@@ -22,7 +22,7 @@ ADSummarizedByDate <- as.data.frame(summarise(ADGroupByDate, totalSteps=sum(step
 
 ```r
 #Plotting the histogram
-ggplot(ADSummarizedByDate,aes(x=date,y=totalSteps)) + geom_bar(stat="identity")  + xlab("Day") + ggtitle("Histogram of the total number of steps taken each day") + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+ggplot(ADSummarizedByDate,aes(totalSteps)) + geom_histogram(bins="30")  + xlab("Day") + ggtitle("Histogram of the total number of steps taken each day") + theme(axis.text.x = element_text(angle = 90, hjust = 1))
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
@@ -31,10 +31,10 @@ ggplot(ADSummarizedByDate,aes(x=date,y=totalSteps)) + geom_bar(stat="identity") 
 
 
 ```r
-meanTotal <- mean(ADSummarizedByDate$meanSteps, na.rm = TRUE)
-medianTotal <- mean(ADSummarizedByDate$medianSteps, na.rm = TRUE)
+meanTotal <- mean(ADSummarizedByDate$totalSteps, na.rm = TRUE)
+medianTotal <- median(ADSummarizedByDate$totalSteps, na.rm = TRUE)
 ```
-The mean total number of steps taken per day is 37.3825996 and the median total number is  0
+The mean total number of steps taken per day is 9354.2295082 and the median total number is  10395
 
 ## What is the average daily activity pattern?
 
@@ -99,9 +99,9 @@ ADFSummarizedByDate <- as.data.frame(summarise(ADFSummarizedByDate, totalSteps=s
 
 
 ```r
-g1 <-ggplot(ADSummarizedByDate,aes(x=date,y=totalSteps)) + geom_bar(stat="identity")  + xlab("Day") + ggtitle("Total number of steps taken each day (before filling NAs)")  + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+g1 <-ggplot(ADSummarizedByDate,aes(totalSteps)) + geom_histogram(bins=30)  + xlab("Day") + ggtitle("Total number of steps taken each day (before filling NAs)")  + theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
-g2 <-ggplot(ADFSummarizedByDate,aes(x=date,y=totalSteps)) + geom_bar(stat="identity")  + xlab("Day") + ggtitle("Total number of steps taken each day (after filling NAs)")  + theme(axis.text.x = element_text(angle = 90, hjust = 1))
+g2 <-ggplot(ADFSummarizedByDate,aes(totalSteps)) + geom_histogram(bins=30)  + xlab("Day") + ggtitle("Total number of steps taken each day (after filling NAs)")  + theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
 g2
 ```
@@ -118,10 +118,10 @@ Plotting the two histograms (before and after filling NAs) for the sake of compa
 
 
 ```r
-meanTotalFilling <- mean(ADFSummarizedByDate$meanSteps, na.rm = TRUE)
-medianTotalFilling <- mean(ADFSummarizedByDate$medianSteps, na.rm = TRUE)
+meanTotalFilling <- mean(ADFSummarizedByDate$totalSteps, na.rm = TRUE)
+medianTotalFilling <- median(ADFSummarizedByDate$totalSteps, na.rm = TRUE)
 ```
-After filling the missing values, the mean total number of steps taken per day is 37.3825996 and the median total number is  4.4738633. Before, they were 37.3825996 and 0 respectively. The mean values are the same but the median changes after filling the missing values.
+After filling the missing values, the mean total number of steps taken per day is 1.0766189\times 10^{4} and the median total number is  1.0766189\times 10^{4}. Before, they were 9354.2295082 and 10395 respectively. The mean values are the same but the median changes after filling the missing values.
 
 
 ## Are there differences in activity patterns between weekdays and weekends?
